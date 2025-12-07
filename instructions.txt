@@ -1,0 +1,28 @@
+## File Overview
+- `document_processor.py` - PDF extraction + chunking
+- `vector_store.py` - FAISS index + retrieval
+- `agentic_rag.py` - Agent orchestrator with critic loop
+- `minirag.py` - Azure OpenAI API functions
+- `chunks.json` - Processed text chunks
+- `faiss_index.bin` - Vector index
+- `chunk_metadata.json` - Chunk metadata mapping
+
+
+# Step 1: Process PDFs (if chunks.json doesn't exist yet)
+python document_processor.py
+
+# Step 2: Build FAISS index
+python vector_store.py --build
+
+# Step 3: Query the system
+python agentic_rag.py "What is zero trust architecture?"
+
+# Step 4: A command-line (CLI) chat loop
+python chat.py
+
+
+python agentic_rag.py "What is zero trust?"
+    → GPT-4o calls search_nist_knowledge tool
+    → embed query (1 API call)
+    → FAISS search
+    → return results
